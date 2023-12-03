@@ -40,7 +40,6 @@ const Dashboard = () => {
     },
   ];
   const [datas, setDatas] = useState();
-  // const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [dataToSendForEdit, setDataToSendForEdit] = useState([]);
@@ -51,6 +50,7 @@ const Dashboard = () => {
     pagination: {
       current: 1,
       pageSize: 10,
+      total: 0,
     },
   });
 
@@ -70,7 +70,7 @@ const Dashboard = () => {
         setDatas(data.dataList);
         setLoading(false);
         setTableParams((prevState) => ({
-          ...prevState,
+          // ...prevState,
           pagination: {
             ...prevState.pagination,
             total: data.count,
@@ -164,22 +164,6 @@ const Dashboard = () => {
     setIndexSearchText(searchString);
   };
 
-  // const start = () => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setSelectedRowKeys([]);
-  //     setLoading(false);
-  //   }, 1000);
-  // };
-  // const onSelectChange = (newSelectedRowKeys) => {
-  //   console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-  //   setSelectedRowKeys(newSelectedRowKeys);
-  // };
-  // const rowSelection = {
-  //   selectedRowKeys,
-  //   onChange: onSelectChange,
-  // };
-
   const editHandler = (values) => {
     setDataToSendForEdit(values);
     setIsEditModalOpen(true);
@@ -211,7 +195,6 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexSearchText]);
 
-  // const hasSelected = selectedRowKeys.length > 0;
   return (
     <div>
       <Row style={{ marginTop: "1rem", marginBottom: "2rem" }}>
@@ -227,8 +210,6 @@ const Dashboard = () => {
           <Button
             danger
             icon={<DeleteOutlined />}
-            // onClick={start}
-            // disabled={!hasSelected}
             loading={loading}
           />
         </Col>
@@ -237,7 +218,6 @@ const Dashboard = () => {
         pagination={tableParams.pagination}
         loading={loading}
         onChange={handleTableChange}
-        // rowSelection={rowSelection}
         columns={columns}
         dataSource={datas}
       />
